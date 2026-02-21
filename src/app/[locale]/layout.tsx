@@ -29,7 +29,7 @@ export const RootLayout = async ({
   params,
 }: Readonly<{
   children: React.ReactNode;
-  params: Promise<{ locale: 'en' | 'ja' }>;
+  params: Promise<{ locale: string }>;
 }>) => {
   const paramLocale = await params.then(p => p.locale);
   const localeResult = localeSchema.safeParse(paramLocale);
