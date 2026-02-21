@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import type { FC } from 'react';
 import styles from './page.module.css';
-import { useTranslations } from '@/hooks/useTranslation';
+import { useTranslations } from '@/hooks';
 
 const Home: FC = () => {
   const { tHome } = useTranslations();
