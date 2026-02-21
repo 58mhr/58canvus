@@ -1,8 +1,9 @@
 import Image from 'next/image';
+import type { FC } from 'react';
 import styles from './page.module.css';
 import { useTranslations } from '@/hooks/useTranslation';
 
-export default function Home() {
+const Home: FC = () => {
   const { tHome } = useTranslations();
   return (
     <div className={styles.page}>
@@ -65,4 +66,6 @@ export default function Home() {
       </main>
     </div>
   );
-}
+};
+
+export default Home;

@@ -1,8 +1,9 @@
-import { NextResponse, type NextRequest } from 'next/server';
+import { type NextRequest, NextResponse } from 'next/server';
 import { localeSchema } from './types/locale';
 
-export function proxy(request: NextRequest) {
+export const proxy = (request: NextRequest) => {
   const FALLBACK_LOCALE = 'en';
+  const defaultLocale = localeSchema.parse(process.env.DEFAULT_LOCALE || FALLBACK_LOCALE);
   const { pathname } = request.nextUrl;
   const locales = localeSchema.options;
 
@@ -18,10 +19,10 @@ export function proxy(request: NextRequest) {
   // ブラウザ言語取得
   const browserLocale = request.headers.get('accept-language')?.split(',')[0].split('-')[0];
   const redirectLocale = localeSchema.parse(
-    browserLocale && localeSchema.safeParse(browserLocale).success ? browserLocale : FALLBACK_LOCALE
+    browserLocale && localeSchema.safeParse(browserLocale).success ? browserLocale : defaultLocale
   );
   return NextResponse.redirect(new URL(`/${redirectLocale}${pathname}`, request.url));
-}
+};
 
 export const config = {
   matcher: ['/((?!_next|.*\\..*).*)'],

@@ -1,9 +1,12 @@
+import './globals.css';
+import '@/env/server-env';
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import { notFound } from 'next/navigation';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
-import './globals.css';
+import { ClientEnvProvider } from '@/context';
+import { clientEnv } from '@/env/client-env';
 import { localeSchema } from '@/types/locale';
 
 const geistSans = Geist({
@@ -34,12 +37,13 @@ export const RootLayout = async ({
     notFound();
   }
   const locale = localeResult.data;
-  // locale に対応する messages を取得し、クライアントコンポーネントに渡す。
   const messages = await getMessages();
   return (
     <html lang={locale}>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>
+        <ClientEnvProvider value={clientEnv}>
+          <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>
+        </ClientEnvProvider>
       </body>
     </html>
   );
