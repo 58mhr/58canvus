@@ -1,7 +1,10 @@
 import Image from 'next/image';
+import type { FC } from 'react';
 import styles from './page.module.css';
+import { useTranslations } from '@/hooks';
 
-export default function Home() {
+const Home: FC = () => {
+  const { tHome } = useTranslations();
   return (
     <div className={styles.page}>
       <main className={styles.main}>
@@ -14,7 +17,7 @@ export default function Home() {
           width={100}
         />
         <div className={styles.intro}>
-          <h1>To get started, edit the page.tsx file.</h1>
+          <h1>{tHome('welcome')}</h1>
           <p>
             Looking for a starting point or more instructions? Head over to
             <a
@@ -63,4 +66,6 @@ export default function Home() {
       </main>
     </div>
   );
-}
+};
+
+export default Home;

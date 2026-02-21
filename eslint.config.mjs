@@ -82,6 +82,13 @@ const eslintConfig = defineConfig([
       eqeqeq: ['error', 'always'],
       // 暗黙の型変換（+str、!!val など）を禁止する。
       'no-implicit-coercion': 'error',
+      // コールバック関数はアロー関数を推奨する。
+      'prefer-arrow-callback': 'error',
+      // 関数式は常にアロー関数を使うよう強制する（関数宣言は除く）。
+      'func-style': ['error', 'expression', { allowArrowFunctions: true }],
+      // import の分割代入内のメンバーをアルファベット順に整列させる。
+      // （import 文自体の順序は import/order が担うため ignoreDeclarationSort: true）
+      'sort-imports': ['error', { ignoreDeclarationSort: true, ignoreMemberSort: false }],
     },
   },
   {
