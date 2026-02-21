@@ -6,7 +6,11 @@ const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
 
 const nextConfig: NextConfig = {
   /* config options here */
+  reactStrictMode: true,
   reactCompiler: true,
+  experimental: {
+    optimizePackageImports: ['@chakra-ui/react'],
+  },
 };
 
 export default withNextIntl(nextConfig);

@@ -5,8 +5,7 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import { notFound } from 'next/navigation';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
-import { ClientEnvProvider } from '@/context';
-import { clientEnv } from '@/env/client-env';
+import { ClientSideProviders } from './providers';
 import { localeSchema } from '@/types/locale';
 
 const geistSans = Geist({
@@ -39,11 +38,14 @@ export const RootLayout = async ({
   const locale = localeResult.data;
   const messages = await getMessages();
   return (
-    <html lang={locale}>
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <ClientEnvProvider value={clientEnv}>
-          <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>
-        </ClientEnvProvider>
+    <html lang={locale} suppressHydrationWarning={true}>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable}`}
+        suppressHydrationWarning={true}
+      >
+        <NextIntlClientProvider messages={messages}>
+          <ClientSideProviders>{children}</ClientSideProviders>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

@@ -21,7 +21,7 @@ export const proxy = (request: NextRequest) => {
   const redirectLocale = localeSchema.parse(
     browserLocale && localeSchema.safeParse(browserLocale).success ? browserLocale : defaultLocale
   );
-  return NextResponse.redirect(new URL(`/${redirectLocale}${pathname}`, request.url));
+  return NextResponse.redirect(new URL(`/${redirectLocale}`, request.url));
 };
 
 export const config = {
